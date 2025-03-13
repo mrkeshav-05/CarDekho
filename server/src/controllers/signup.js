@@ -101,3 +101,55 @@ export const resetPassword = async (req, res) => {
     return res.status(401).send("Invalid toke last walo bhai");
   }
 };
+
+export const signup = async (req, res, next) => {
+  console.log(req.body)
+  try {
+    const salt = bcrypt.genSaltSync(10);
+    const hash = bcrypt.hashSync(req.body.password, salt);
+    const mobno = req.body.phone;
+    const existingUserEmail = await User.findOne({ email: req.body.email });
+    if (existingUserEmail) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Email is already in use." });
+    }
+    const existingPhone = await User.findOne({ phone: req.body.phone });
+    if (existingPhone) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Phone number is already in use." });
+    }
+    const existingUsername = await User.findOne({ username: req.body.username });
+    if (existingUsername) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Username is already in use." });
+    }
+    const newUser = new User({ ...req.body, password: hash, phone: mobno });
+
+    const userData = await newUser.save();
+    if (userData) {
+      sendVerifyMail(req.body.username, req.body.email, userData._id);
+      res.status(200).json({ newUser });
+    }
+  } catch (err) {
+    next(err);
+    console.log(err);
+  }
+};
+
+export const verifyMail = async (req, res) => {
+  try {
+    const updatedInfo = await User.updateOne(
+      { _id: req.query.id },
+      { $set: { email_verified: true } }
+    );
+
+    console.log(updatedInfo);
+    res.status(200).json({ message: "email successfully verified" });
+  } catch (error) {
+    console.log("error is", error.message);
+  }
+};
+
