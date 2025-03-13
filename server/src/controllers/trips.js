@@ -47,8 +47,7 @@ export const mytrips = async (req, res) => {
 };
 
 export const findtrip = async (req, res) => {
-  const { source, destination, time, user } = req.body;
-  console.log("Request body of find trip", req.body);
+  const { source, destination, time } = req.body;
   try {
     const trip = await tripSchema.find({
       source: source,
@@ -62,3 +61,35 @@ export const findtrip = async (req, res) => {
     res.json({ message: "No such trips found" });
   }
 };
+
+//add delet trip
+export const deleteTrip = async(req,res)=>{
+    try{
+        console.log(req.params.id);
+        const trip = await tripSchema.findByIdAndDelete(req.params.id);
+        console.log(trip);
+        const driver = trip.driver;
+        const updatedDriver = await User.findByIdAndUpdate(
+            driver,
+            {$pull:{trips:trip}},
+            {new: true}
+        );
+        console.log(driver);
+        // Iterate through each booking associated with the trip
+        for (const bookingId of trip.Bookings) {
+            const booking = await BookingSchema.findById(bookingId);
+            if (booking) {
+                // Removing the trip from each booker's bookings array
+                const updatedUser = await User.findByIdAndUpdate(
+                    booking.Bookingperson,
+                    {$pull:{bookings:bookingId}},
+                    {new: true}
+                );
+            }
+        }
+        res.json({trip});
+    } catch(err){
+        console.error(err);
+        res.status(500).json({message:"cannot delete the trip/trip not found"});
+    }
+}
