@@ -93,3 +93,12 @@ export const deleteTrip = async(req,res)=>{
         res.status(500).json({message:"cannot delete the trip/trip not found"});
     }
 }
+
+export const edittrip = async(req,res)=>{
+    try{
+        const trip = await tripSchema.findByIdAndUpdate(req.params.id,{$set:req.body},{new:true});
+        res.json({message:"trip edited"})
+    }catch(err){
+        res.json({message:"cannot edit the trip/trip not found"})
+    }
+}
