@@ -17,8 +17,23 @@ export const createtrip =async(req,res)=>{
         res.status(200).json({trip})
 
     }catch(err){
-   
+        res.status(500).json({message:'Server error'})
+        console.log(err);
     }
     console.log(trip)
 }
+
+export const mytrips=async(req,res)=>{
+    const userId=req.params.id;
+    try{
+        const {trips} = await User.findById(userId)
+        trips.sort((a, b) => new Date(a.date) - new Date(b.date));
+        res.status(200).json({trips});
+    }
+    catch(err){
+        res.status(500).json("error in finding trips");
+        console.log(err);
+    }
+}
+
 
