@@ -153,3 +153,39 @@ export const verifyMail = async (req, res) => {
   }
 };
 
+//For sending mail
+const sendVerifyMail = async (name, email, user_id) => {
+  try {
+    nodemailer.createTransport({
+      service: "gmail", //add gmail service
+      host: "smtp.ethereal.email",
+      port: 587,
+      secure: false,
+      auth: {
+        user: EMAIL,
+        pass: PASSWORD, //App password
+      },
+    });
+    const mailOptions = {
+      from: EMAIL,
+      to: email,
+      subject: "CarSaathi Email verification",
+      html:
+        "<p>Hi" +
+        name +
+        ', please click here to <a href="http://localhost:3000/verify?id=' +
+        user_id +
+        '">Verify</a> your email.</p>',
+    };
+
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Email has been sent:- ", info.response);
+      }
+    });
+  } catch (err) {
+    console.log(err.message);
+  }
+};
