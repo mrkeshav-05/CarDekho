@@ -7,7 +7,6 @@ import { validationResult } from "express-validator";
 
 export const googleAuth = async (req, res, next) => {
     try {
-      console.log("noice",req.body);
       const user = await User.findOne({ email: req.body.email });
       if (user) {
         res
