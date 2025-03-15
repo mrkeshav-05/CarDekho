@@ -3,6 +3,7 @@ import Navbar from "../../Components/Navbar/Navbar";
 import emailjs from "@emailjs/browser";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import contactusImage from "../../Images/contactus.png"; // Ensure this is a transparent PNG
 
 import { useNavigate } from "react-router-dom";
 
@@ -52,6 +53,7 @@ export const ContactUs: React.FC<ContactUsProps> = ({ user, setIsLoggedIn }) => 
           <div className="flex items-center justify-center">
             <img
               className="max-w-[500px] w-full mx-auto rounded-2xl"
+              src={contactusImage}
               alt="Contact Us"
             />
           </div>
