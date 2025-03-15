@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./Button.css";
 import { Tooltip } from "@mui/material";
 
 function Button() {
