@@ -52,7 +52,6 @@ export const ContactUs: React.FC<ContactUsProps> = ({ user, setIsLoggedIn }) => 
           <div className="flex items-center justify-center">
             <img
               className="max-w-[500px] w-full mx-auto rounded-2xl"
-              src={contactusImage}
               alt="Contact Us"
             />
           </div>
