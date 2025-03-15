@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaCar } from "react-icons/fa";
 import { RiLogoutBoxLine, RiUserLine } from "react-icons/ri";
 import { Tooltip } from "@mui/material";
-import { navItems } from "./NavItems"; // Ensure correct import
+import { navItems } from "./Navitems"; // Ensure correct import
 
 interface User {
   _id?: string;
