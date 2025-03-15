@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Dashboard from "./pages/Dashboard/Dashboard.tsx";
 import { useState, useEffect } from "react";
+import { ContactUs } from "./pages/ContactUs/contact.tsx";
 
 interface User {
   _id?: string;
@@ -13,6 +14,13 @@ const tempUser: User = {
   name: "John Doe",
   email: "johndoe@example.com",
 };
+
+interface DashboardProps {
+  user: User;
+  setUser: React.Dispatch<React.SetStateAction<User>>;
+  isLoggedIn: boolean;
+  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
 const App: React.FC = () => {
   const [user, setUser] = useState<User>(
@@ -38,6 +46,10 @@ const App: React.FC = () => {
               setIsLoggedIn={setIsLoggedIn}
             />
           }
+        />
+        <Route
+          path="/contactus"
+          element={<ContactUs user={user} setIsLoggedIn={setIsLoggedIn} />}
         />
       </Routes>
     </BrowserRouter>
