@@ -7,16 +7,17 @@ import {
   FaTwitterSquare,
 } from "react-icons/fa";
 
-function Footer() {
+// Define the functional component with TypeScript
+const Footer: React.FC = () => {
   return (
     <div className="w-full bg-black py-16 px-4 text-gray-300">
       <div className="max-w-7xl mx-auto grid lg:grid-cols-3 gap-8">
         <div>
-          <h1 className="w-full text-3xl font-bold text-[#00df9a] mb-4 font-serif">
-            CarDekho.Com
-          </h1>
+        <h1 className="w-full text-3xl font-bold text-[#00df9a] mb-4 font- ">
+  CarDekho.Com
+</h1>
           <p className="py-4 text-sm">
-           CarDekho is your go-to platform for finding and offering rides. We aim to make commuting easier, more affordable, and environmentally friendly by connecting drivers and passengers for carpooling
+            CarDekho is your go-to platform for finding and offering rides. We aim to make commuting easier, more affordable, and environmentally friendly by connecting drivers and passengers for carpooling.
           </p>
           <div className="flex justify-between md:w-[75%] my-6">
             <FaFacebookSquare size={30} className="hover:text-blue-500" />
@@ -30,23 +31,16 @@ function Footer() {
           <div>
             <h6 className="font-medium text-[#00df9a] mb-2">About</h6>
             <ul>
-              <li className="py-2 text-sm hover:text-[#00df9a]">
-                How it Works ?
-              </li>
+              <li className="py-2 text-sm hover:text-[#00df9a]">How it Works?</li>
               <li className="py-2 text-sm hover:text-[#00df9a]">About Us</li>
               <li className="py-2 text-sm hover:text-[#00df9a]">Help Center</li>
-              <li className="py-2 text-sm hover:text-[#00df9a]">
-                We are Hiring!
-              </li>
+              <li className="py-2 text-sm hover:text-[#00df9a]">We are Hiring!</li>
             </ul>
-          </div>
-          <div>
-           
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default Footer;
