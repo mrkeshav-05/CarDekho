@@ -1,5 +1,5 @@
 import express from "express";
-import { createtrip,findtrip,edittrip,deleteTrip,mytrips} from "../controllers/trips.js";
+import { createtrip,findtrip,edittrip,deleteTrip,mytrips} from "../controllers/trips.controller.js";
 const router = express.Router();
 
 //Routes for booking api

@@ -1,5 +1,5 @@
 import express from "express";
-import { booktrip,cancelbooking,confirmbooking,mybookings} from "../controllers/booking.js";
+import { booktrip,cancelbooking,confirmbooking,mybookings} from "../controllers/booking.controller.js";
 const router = express.Router();
 
 //Routes for booking api

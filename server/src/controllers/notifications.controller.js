@@ -1,5 +1,5 @@
-import bookingSchema from "../models/booking.js";
-import NotificationSchema from "../models/notifications.js";
+import bookingSchema from "../models/booking.model.js";
+import NotificationSchema from "../models/notifications.model.js";
 
 export const bookingnotification =async(req,res)=>{
     const userId = req.body.userId;

@@ -1,5 +1,5 @@
 import express from "express";
-import { addReview, getReviews, getRating, editReview, deleteReview } from '../controllers/reviews.js';
+import { addReview, getReviews, getRating, editReview, deleteReview } from '../controllers/reviews.controller.js';
 const router = express.Router();
 
 //Routes for reviews api
