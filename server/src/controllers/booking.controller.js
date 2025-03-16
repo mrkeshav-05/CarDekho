@@ -1,6 +1,6 @@
 import bookingSchema from '../models/booking.model.js';
 import Trip from "../models/trip.model.js";
-import User from "../models/user.js";
+import User from "../models/user.model.js";
 import Notification from "../models/notifications.model.js";
 
 
@@ -77,3 +77,26 @@ export const booktrip = async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
+
+export const mybookings=async(req,res)=>{
+  const userId=req.params.id;
+  try{
+      const {bookings} = await User.findById(userId)
+      bookings.sort((a, b) => new Date(a.date) - new Date(b.date));
+      const book =[];
+      for(const id of bookings){
+          const bookingdata = await bookingSchema.findById(id)
+          if(!bookingdata){
+              // res.status(400).json("nhi ho rha bhai");
+          }
+          else{
+              book.push(bookingdata);
+          }
+      }
+      res.status(200).json({book});
+  }
+  catch(err){
+      res.status(500).json("error in finding trips");
+      console.log(err);
+  }
+}
