@@ -1,7 +1,7 @@
 import User from  "../models/user.model.js"
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-const secret = "This#*(%i#s%@c^a(ersatthid>><><dheggefj";
+const secret = "This#*(%i#s%@*&(*(c&a&r))>><><dheggefj";
 
 export const signin = async (req, res, next) => {
 
@@ -12,7 +12,7 @@ export const signin = async (req, res, next) => {
         const isCorrect = await bcrypt.compare(req.body.password, user.password);
         if (!isCorrect) {res.status(500).json({ message: "Incorrect password" });}
         else{
-          const accesstoken = jwt.sign({id:user._id,email:user.email,username:user.username},secret,{expiresIn:"15m"})
+          const accesstoken = jwt.sign({id:user._id,email:user.email,username:user.username},secret,{expiresIn:"15d"})
           const { password, ...others } = user._doc;
         res
         .status(200)
