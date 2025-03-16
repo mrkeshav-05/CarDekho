@@ -13,7 +13,7 @@ const Footer: React.FC = () => {
     <div className="w-full bg-black py-16 px-4 text-gray-300">
       <div className="max-w-7xl mx-auto grid lg:grid-cols-3 gap-8">
         <div>
-        <h1 className="w-full text-3xl font-bold text-[#00df9a] mb-4 font- ">
+        <h1 className="w-full text-3xl font-bold text-[#dbaa08] mb-4 font- ">
   CarDekho.Com
 </h1>
           <p className="py-4 text-sm">
