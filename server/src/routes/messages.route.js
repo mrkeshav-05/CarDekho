@@ -1,5 +1,5 @@
 import express from "express";
-import { newMessage,getMessages } from '../controllers/message.js'
+import { newMessage,getMessages } from '../controllers/message.controller.js'
 const router = express.Router();
 
 //Routes for auth api

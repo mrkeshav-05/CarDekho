@@ -5,15 +5,37 @@ import bodyParser from 'body-parser';
 import cookieParser from "cookie-parser";
 import cors from "cors";
 
+import authroutes from './routes/auth.route.js';
+import reviewroutes from './routes/reviews.route.js';
+import userroutes from './routes/user.route.js';
+import conversationroutes from './routes/conversation.route.js';
+import messageroutes from './routes/messages.route.js';
+import triproutes from './routes/trips.route.js';
+import bookingroutes from './routes/booking.route.js';
+// import paymentroutes from './routes/payment.route.js';
+import notificationroutes  from './routes/notifications.route.js'
+
 dotenv.config({ path: './.env'});
 const PORT = process.env.PORT || 8001;
 
 const app = express();
-// Middleware
+
 app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+
+// import routes
+app.use("/api/auth",authroutes)
+app.use("/api/reviews",reviewroutes)
+app.use("/api/user",userroutes)
+app.use("/api/conversation",conversationroutes)
+app.use("/api/message",messageroutes)
+// app.use("/api/payment",paymentroutes)
+app.use("/api/trip",triproutes)
+app.use("/api/booking",bookingroutes)
+app.use("/api/notifications",notificationroutes)
 
 app.use((err, req, res, next) => {
     const status = err.status || 500;

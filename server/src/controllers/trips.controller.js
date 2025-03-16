@@ -1,6 +1,6 @@
-import tripSchema from "../models/trip.js";
-import User from "../models/user.js";
-import BookingSchema from "../models/booking.js";
+import tripSchema from "../models/trip.model.js";
+import User from "../models/user.model.js";
+import BookingSchema from "../models/booking.model.js";
 
 export const createtrip = async (req, res) => {
   const {

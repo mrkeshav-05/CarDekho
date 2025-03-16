@@ -1,5 +1,5 @@
 import express from "express";
-import { newConversation,getConversation } from '../controllers/conversation.js'
+import { newConversation,getConversation } from '../controllers/conversation.controller.js'
 const router = express.Router();
 
 //Routes for auth api
