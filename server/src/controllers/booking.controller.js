@@ -100,3 +100,61 @@ export const mybookings=async(req,res)=>{
       console.log(err);
   }
 }
+
+export const cancelbooking = async(req,res)=>{
+  try {
+      const booking = await bookingSchema.findByIdAndDelete(req.params.id);
+      if (!booking) {
+          return res.status(404).json({ message: "Booking not found" });
+      }
+  
+      const Driver = booking.Driver;
+      const bookinguser = booking.Bookingperson;
+  
+      console.log("Driver:", Driver);
+      console.log("Booking user:", bookinguser);
+  
+      const findtrip = await Trip.findById(booking.trip);
+      console.log("Find trip:", findtrip);
+  
+      const updatedTrip = await Trip.findByIdAndUpdate(
+          booking.trip,
+          {
+              $pull: { Bookers: booking.Bookingperson },
+              $inc: { availableSeats: booking.NoofBookedSeats }
+          },
+          { new: true }
+      );
+      console.log("Updated trip:", updatedTrip);
+  
+      const user = await User.findByIdAndUpdate(
+          bookinguser,
+          { $pull: { bookings: req.params.id } },
+          { new: true }
+      );
+      console.log("Updated user:", user);
+  
+      const driver = await User.findByIdAndUpdate(
+          Driver,
+          { $pull: { trips: findtrip } },
+          { new: true }
+      );
+      console.log("Updated driver (pull):", driver);
+  
+      const driver2 = await User.findByIdAndUpdate(
+          Driver,
+          { $push: { trips: updatedTrip } },
+          { new: true }
+      );
+      console.log("Updated driver (push):", driver2);
+      res.status(200).json({ 
+          message: "Booking cancelled", 
+          booking, 
+          user, 
+          driver: driver2 
+      });
+  } catch (error) {
+      console.error("Error occurred:", error);
+      res.status(500).json({ message: "Internal server error" });
+  }    
+}
