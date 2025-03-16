@@ -158,3 +158,55 @@ export const cancelbooking = async(req,res)=>{
       res.status(500).json({ message: "Internal server error" });
   }    
 }
+
+export const confirmbooking = async (req, res) => {
+  const bookingId = req.params.id;
+
+  try {
+      const booking = await bookingSchema.findById(bookingId);
+
+      if (!booking) {
+          return res.status(404).json({ message: "Booking not found" });
+      }
+      const user = await User.findById(booking.Bookingperson);
+      const driver = await User.findById(booking.Driver);
+
+      if (!user || !driver) {
+          return res.status(404).json({ message: "User or Driver not found" });
+      }
+      const updatedUser = await User.findByIdAndUpdate(
+          booking.Bookingperson,
+          { 
+              $pull: { requestedbookings: bookingId }, 
+              $push: { bookings: bookingId } 
+          },
+          { new: true }
+      );
+      const updatedTrip = await trip.findByIdAndUpdate(
+          booking.trip,
+          { 
+              $pull: { requestedbookings: bookingId }, 
+              $push: { 
+                  Bookings: bookingId,
+                  riders: booking.riders,
+                  bookers: booking.UserId
+              },
+              $dec: { availableSeats: booking.NoofBookedSeats }
+          },
+          { new: true }
+      );
+      const updatedDriver = await User.findByIdAndUpdate(
+          booking.Driver,
+          { 
+              $pull: { requestedtrips: bookingId },
+          },
+          { new: true }
+      );
+      booking.status = true;
+      await booking.save();
+      res.json({ message: "Booking confirmed", user: updatedUser, driver: updatedDriver });
+  } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: "Error confirming the booking" });
+  }
+};
