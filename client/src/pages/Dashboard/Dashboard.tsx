@@ -1,6 +1,6 @@
 import React from "react";
 import Hero from "../../Components/Hero/Hero";
-import Navbar from "../../Components/Navbar/Navbar";
+import Navbar from "../../Components/Navbar/NavBar";
 import Footer from "../../Components/Footer/Footer";
 import Analytic from "../../Components/Analytics/Analytic";
 import Analytic2 from "../../Components/Analytics/Analytics2";
