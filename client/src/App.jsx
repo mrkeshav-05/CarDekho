@@ -42,6 +42,7 @@ import DriverRides from "./components/Rides/Driver/DriverRides.jsx";
 import Rider from "./components/Rides/Rider/Rider.jsx";
 import BookingPage from "./pages/booking/book.jsx";
 import DriverInfoPage from "./pages/BookingInfo/info.jsx";
+import ResetPassword from "./pages/Reset/Reset.jsx";
 
 
 function App() {
@@ -66,7 +67,9 @@ function App() {
       <Route path="/" element={<Dashboard user={user} setUser={setUser} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />} />
       <Route path="/createtrip" element={<PublishTrip user={user} setUser={setUser} setIsLoggedIn={setIsLoggedIn}/>}/>
       <Route path="/BookingInfo" element={<DriverInfoPage user={user} setUser={setUser} />} /> 
-            <Route path="/booking" element={<BookingPage user={user} setUser={setUser} setIsLoggedIn={setIsLoggedIn} />} /> 
+      <Route path="/booking" element={<BookingPage user={user} setUser={setUser} setIsLoggedIn={setIsLoggedIn} />} /> 
+      <Route path='/resetPassword' element={<ResetPassword />}/>
+
            
         {/* <Route
           path="/contactus"
