@@ -1,0 +1,6 @@
+CC/DC number = 4988 0800 0000 0000	 
+Expiry Date = 03/2030	
+CVV = 737
+OTP = random
+Commercial Premium Debit	
+Country Origin = IN
