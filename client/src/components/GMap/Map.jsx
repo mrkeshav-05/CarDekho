@@ -3,21 +3,14 @@ import {
   GoogleMap,
   Marker,
   DirectionsRenderer,
-  Circle,
-  MarkerClusterer,
-  Autocomplete,
+  OverlayView,
 } from "@react-google-maps/api";
 
 const Map = ({ directionsResponses }) => {
   const [currentLocation, setCurrentLocation] = useState(null);
-  const [response, setResponse] = useState(null);
   const [error, setError] = useState(null);
-  const [source, setSource] = useState();
-  const [selectedRouteIndex, setSelectedRouteIndex] = useState();
+  const [selectedRouteIndex, setSelectedRouteIndex] = useState(null);
 
-  const handleRouteClick = (index) => {
-    setSelectedRouteIndex(index);
-  };
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -37,7 +30,7 @@ const Map = ({ directionsResponses }) => {
 
   const mapContainerStyle = {
     height: "420px",
-    width: "108%",
+    width: "100%",
     margin: "20px auto",
     borderRadius: "8px",
     boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
@@ -52,26 +45,56 @@ const Map = ({ directionsResponses }) => {
             zoom={13}
             center={currentLocation || { lat: -34.397, lng: 150.644 }}
           >
-            {currentLocation && <Marker position={currentLocation} />}
-            {directionsResponses &&
-              directionsResponses.routes.map((route, index) => (
-                <DirectionsRenderer
-                  key={index}
-                  directions={{ ...directionsResponses, routes: [route] }}
-                  options={{
-                    polylineOptions: {
-                      strokeColor: "blue",
-                      strokeOpacity: index === selectedRouteIndex ? 1 : 0.5,
-                      strokeWeight: index === selectedRouteIndex ? 8 : 4,
-                    },
+            {currentLocation && (
+              <>
+                {/* Marker */}
+                <Marker
+                  position={currentLocation}
+                  icon={{
+                    url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png",
                   }}
-                  onClick={() => handleRouteClick(index)}
                 />
-              ))}
-            {(!directionsResponses ||
-              directionsResponses.routes.length === 0) && (
-              <p>Please enter valid route locations.</p>
+
+                {/* Label below the marker */}
+                <OverlayView
+                  position={currentLocation}
+                  mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
+                >
+                  <div
+                    style={{
+                      backgroundColor: "white",
+                      padding: "2px 6px",
+                      borderRadius: "4px",
+                      fontSize: "14px",
+                      fontWeight: "bold",
+                      textAlign: "center",
+                      color: "black",
+                      position: "relative",
+                      top: "20px", // Moves the label below the marker
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    You are here
+                  </div>
+                </OverlayView>
+              </>
             )}
+
+            {directionsResponses?.routes?.map((route, index) => (
+              <DirectionsRenderer
+                key={index}
+                directions={{ ...directionsResponses, routes: [route] }}
+                options={{
+                  polylineOptions: {
+                    strokeColor: index === selectedRouteIndex ? "red" : "blue",
+                    strokeOpacity: index === selectedRouteIndex ? 1 : 0.6,
+                    strokeWeight: index === selectedRouteIndex ? 6 : 4,
+                  },
+                }}
+                onClick={() => setSelectedRouteIndex(index)}
+              />
+            ))}
+
             {error && <p>{error}</p>}
           </GoogleMap>
         </div>
