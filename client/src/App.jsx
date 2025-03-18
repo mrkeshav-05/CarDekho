@@ -42,6 +42,8 @@ import DriverRides from "./components/Rides/Driver/DriverRides.jsx";
 import Rider from "./components/Rides/Rider/Rider.jsx";
 import BookingPage from "./pages/booking/book.jsx";
 import DriverInfoPage from "./pages/BookingInfo/info.jsx";
+import SignIn from './pages/SignIn/SignIn.jsx'
+import Signup from './pages/Signup/Signup.jsx';
 
 
 function App() {
@@ -62,6 +64,9 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+      <Route path="/SignIn" element={<SignIn user={user} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} setUser={setUser}/>}/>
+      <Route path="/Signup" element={<Signup user={user} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} setUser={setUser}/>}/>
+
       <Route path="/contactus" element={<ContactUs user={user} setIsLoggedIn={setIsLoggedIn} />} />
       <Route path="/" element={<Dashboard user={user} setUser={setUser} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />} />
       <Route path="/createtrip" element={<PublishTrip user={user} setUser={setUser} setIsLoggedIn={setIsLoggedIn}/>}/>
