@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { useState } from "react";
 import GMap from "../../components/GMap/GMap";
 import {
@@ -26,13 +26,13 @@ const style = {
   p: 4,
 };
 
-const GMapAPI = import.meta.GOOGLE_MAP_API;
-
+const GMapAPI = import.meta.env.VITE_GOOGLE_MAP_API;
 function PublishTrip({ user, setUser, setIsLoggedIn }) {
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: "AIzaSyClnzcci8V997acQhlpEiYhaLlz_ogR_Vc",
+    googleMapsApiKey: GMapAPI,
     libraries: ["places", "geometry"],
   });
+  console.log("Google Maps API Key:", GMapAPI);
 
   const [source, setSource] = useState("");
   const [destination, setDestination] = useState("");

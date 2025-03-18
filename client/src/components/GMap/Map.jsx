@@ -12,20 +12,45 @@ const Map = ({ directionsResponses }) => {
   const [selectedRouteIndex, setSelectedRouteIndex] = useState(null);
 
   useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const { latitude, longitude } = position.coords;
-          setCurrentLocation({ lat: latitude, lng: longitude });
-        },
-        (error) => {
-          console.error("Error getting current location:", error);
-          setError("Error getting current location");
-        }
-      );
-    } else {
-      setError("Geolocation is not supported by this browser");
+    if (!navigator.geolocation) {
+      setError("Geolocation is not supported by this browser.");
+      return;
     }
+
+    const options = {
+      enableHighAccuracy: true,
+      timeout: 10000, // 10 seconds timeout
+      maximumAge: 0, // Do not use cached location
+    };
+
+    const successCallback = (position) => {
+      const { latitude, longitude } = position.coords;
+      setCurrentLocation({ lat: latitude, lng: longitude });
+      setError(null); // Reset error if location is retrieved successfully
+    };
+
+    const errorCallback = (err) => {
+      console.error("Geolocation error:", err);
+
+      switch (err.code) {
+        case 1:
+          setError("Location access denied. Please allow location permissions.");
+          break;
+        case 2:
+          setError("Location unavailable. Trying again...");
+          setTimeout(() => navigator.geolocation.getCurrentPosition(successCallback, errorCallback, options), 5000);
+          break;
+        case 3:
+          setError("Location request timed out. Please try again.");
+          break;
+        default:
+          setError("An unknown error occurred.");
+      }
+    };
+
+    const watchId = navigator.geolocation.watchPosition(successCallback, errorCallback, options);
+
+    return () => navigator.geolocation.clearWatch(watchId);
   }, []);
 
   const mapContainerStyle = {
@@ -47,7 +72,7 @@ const Map = ({ directionsResponses }) => {
           >
             {currentLocation && (
               <>
-                {/* Marker */}
+                {/* User's Current Location Marker */}
                 <Marker
                   position={currentLocation}
                   icon={{
@@ -63,14 +88,14 @@ const Map = ({ directionsResponses }) => {
                   <div
                     style={{
                       backgroundColor: "white",
-                      padding: "2px 6px",
+                      padding: "4px 8px",
                       borderRadius: "4px",
                       fontSize: "14px",
                       fontWeight: "bold",
                       textAlign: "center",
                       color: "black",
                       position: "relative",
-                      top: "20px", // Moves the label below the marker
+                      top: "20px",
                       whiteSpace: "nowrap",
                     }}
                   >
@@ -80,23 +105,27 @@ const Map = ({ directionsResponses }) => {
               </>
             )}
 
+            {/* Render multiple routes with color distinction */}
             {directionsResponses?.routes?.map((route, index) => (
-              <DirectionsRenderer
+              <div
                 key={index}
-                directions={{ ...directionsResponses, routes: [route] }}
-                options={{
-                  polylineOptions: {
-                    strokeColor: index === selectedRouteIndex ? "red" : "blue",
-                    strokeOpacity: index === selectedRouteIndex ? 1 : 0.6,
-                    strokeWeight: index === selectedRouteIndex ? 6 : 4,
-                  },
-                }}
                 onClick={() => setSelectedRouteIndex(index)}
-              />
+                style={{ cursor: "pointer" }} // Ensures clickable area
+              >
+                <DirectionsRenderer
+                  directions={{ ...directionsResponses, routes: [route] }}
+                  options={{
+                    polylineOptions: {
+                      strokeColor: index === selectedRouteIndex ? "red" : "blue",
+                      strokeOpacity: index === selectedRouteIndex ? 1 : 0.6,
+                      strokeWeight: index === selectedRouteIndex ? 6 : 4,
+                    },
+                  }}
+                />
+              </div>
             ))}
-
-            {error && <p>{error}</p>}
           </GoogleMap>
+          {error && <p style={{ color: "red", textAlign: "center" }}>{error}</p>}
         </div>
       </div>
     </div>
