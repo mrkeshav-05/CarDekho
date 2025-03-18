@@ -8,6 +8,3 @@ createRoot(document.getElementById('root')).render(
     <App />
   </StrictMode>,
 )
-
-
-// Path: client/src/App.jsx
