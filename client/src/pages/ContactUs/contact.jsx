@@ -3,7 +3,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import emailjs, { EmailJSResponseStatus } from "@emailjs/browser";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import contactusimg from "../../Images/contactus.png"; // Import the image
+import contactusimg from "../../Images/contactus.png"; 
 
 import { useNavigate } from "react-router-dom";
 

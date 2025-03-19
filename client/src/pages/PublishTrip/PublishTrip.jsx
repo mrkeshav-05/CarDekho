@@ -52,12 +52,10 @@ function PublishTrip({ user, setUser, setIsLoggedIn }) {
 
   const [isOpen, setIsOpen] = useState(false);
 
-  //!open modal when publish click button pressed
   const handlePublishClick = () => {
     setIsOpen(true)
   }
 
-  //!When the user finally click on yes
   const handleYes = async () => {
     try {
       const source1 = directionResponses.routes[selectedRouteIndex].legs[0].start_address
@@ -94,7 +92,6 @@ function PublishTrip({ user, setUser, setIsLoggedIn }) {
     }
   }
 
-  //!when user click cancel
   const handleCancel = () => {
     setIsOpen(false)
   }
