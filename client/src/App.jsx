@@ -42,12 +42,11 @@ import DriverRides from "./components/Rides/Driver/DriverRides.jsx";
 import Rider from "./components/Rides/Rider/Rider.jsx";
 import BookingPage from "./pages/booking/book.jsx";
 import DriverInfoPage from "./pages/BookingInfo/info.jsx";
-<<<<<<< HEAD
 import SignIn from './pages/SignIn/SignIn.jsx'
 import Signup from './pages/Signup/Signup.jsx';
-=======
+
 import ResetPassword from "./pages/Reset/Reset.jsx";
->>>>>>> e15dccb058bf7818a8132b12aa3d950e656d86be
+
 
 
 function App() {
