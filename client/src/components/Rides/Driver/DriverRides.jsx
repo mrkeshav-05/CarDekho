@@ -154,7 +154,6 @@ function DriverRides({ user, setIsLoggedIn, setCurrentChat, currentChat }) {
   const [trips, setTrips] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  // Mock data for trips (this would normally come from the backend)
   const mockTrips = [
     {
       _id: "1",
@@ -169,12 +168,11 @@ function DriverRides({ user, setIsLoggedIn, setCurrentChat, currentChat }) {
   ];
 
   useEffect(() => {
-    // Simulating fetching trips (in place of API call)
     setIsLoading(true);
     setTimeout(() => {
-      setTrips(mockTrips); // Set trips from mock data
+      setTrips(mockTrips); 
       setIsLoading(false);
-    }, 1000); // Simulate a delay of 1 second
+    }, 1000);
   }, []);
 
   const upcomingTrips = trips.filter((trip) => new Date(trip.time) > new Date());
@@ -186,7 +184,6 @@ function DriverRides({ user, setIsLoggedIn, setCurrentChat, currentChat }) {
       <div className="p-8">
         <Title>Your Rides</Title>
 
-        {/* Upcoming Rides */}
         <div>
           <SectionTitle>Upcoming Rides:</SectionTitle>
           {upcomingTrips.length > 0 ? (
@@ -205,7 +202,6 @@ function DriverRides({ user, setIsLoggedIn, setCurrentChat, currentChat }) {
           )}
         </div>
 
-        {/* Past Rides */}
         <div>
           <SectionTitle>Past Rides:</SectionTitle>
           {pastTrips.length > 0 ? (

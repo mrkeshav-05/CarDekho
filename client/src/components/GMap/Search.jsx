@@ -7,7 +7,6 @@ const containerStyle = {
   height: "40px",
 };
 
-// Keep the API key as a string
 const apiKey = GMapAPI;
 
 const AutocompleteExample = () => {
@@ -45,7 +44,6 @@ const AutocompleteExample = () => {
   );
 };
 
-// Wrap with LoadScript outside the component
 const WrappedAutocompleteExample = () => (
   <LoadScript googleMapsApiKey={apiKey} libraries={["places"]}>
     <AutocompleteExample />

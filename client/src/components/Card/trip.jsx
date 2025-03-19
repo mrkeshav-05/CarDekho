@@ -11,7 +11,6 @@ const TripCard = ({ trip, setupdate, setCurrentChat, currentChat }) => {
 
   const [bookerDetails, setBookerDetails] = useState(new Map());
 
-  // Ensure trip is defined to avoid errors
   if (!trip) return <div>Loading trip details...</div>;
 
   const today = new Date();
@@ -47,7 +46,6 @@ const TripCard = ({ trip, setupdate, setCurrentChat, currentChat }) => {
   console.log("TripCard props:", { setCurrentChat, currentChat });
 
   useEffect(() => {
-    // Ensure trip.Bookers is defined before iterating
     const bookers = trip?.Bookers || [];
     for (let i = 0; i < bookers.length; i++) {
       getUser(bookers[i]);

@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import carImage from "../../Images/1.png"; // Import the image
+import carImage from "../../Images/1.png"; 
 
 function Hero() {
   const navigate = useNavigate();
@@ -30,7 +30,7 @@ function Hero() {
         </div>
         <div className="flex-shrink-0 w-full md:w-1/2 ">
           <img
-            src={carImage} // Use the imported image
+            src={carImage} 
             alt="car illustration"
             className="w-[50vw] h-auto p-4 "
           />

@@ -26,7 +26,6 @@ export default function BookerButton({user,curruser,currentChat,setCurrentChat})
         let conversations = res.data;
         console.log(res.data)
 
-        // Find if conversation with the driver already exists
         let chatExists = conversations?.find((conversation) =>
           conversation.members.includes(curruser)
         );

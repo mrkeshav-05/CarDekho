@@ -4,7 +4,7 @@ import { FaCar } from "react-icons/fa";
 import { RiLogoutBoxLine, RiUserLine } from "react-icons/ri";
 import { navItems } from "./Navitems.jsx";
 import Button from "./Button.jsx";
-import { Tooltip } from "react-tooltip"; // Import correctly
+import { Tooltip } from "react-tooltip"; 
 
 function Navbar({ user, setIsLoggedIn }) {
   const navigate = useNavigate();

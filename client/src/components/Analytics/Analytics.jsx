@@ -1,5 +1,5 @@
 import React from "react";
-import carImage from "../../Images/4.png"; // Import the image
+import carImage from "../../Images/4.png"; 
 
 function Analytics() {
   return (

@@ -60,11 +60,9 @@ const BookCard = ({
     const today = new Date();
     const bookingDate = new Date(booking.Date);
 
-    // Calculate the difference in days between today and the booking date
     const differenceInTime = bookingDate.getTime() - today.getTime();
     const differenceInDays = Math.ceil(differenceInTime / (1000 * 3600 * 24));
     
-    // Set the refund percentage based on the difference in days
     if (differenceInDays >= 2) {
       setRefundPercentage(0.95);
     } else if (differenceInDays === 1) {
@@ -89,7 +87,6 @@ const BookCard = ({
         );
         let conversations = res.data;
 
-        // Find if conversation with the driver already exists
         let chatExists = conversations?.find((conversation) =>
           conversation.members.includes(booking.Driver)
         );
@@ -120,7 +117,6 @@ const BookCard = ({
 
   const handleDelete = async () => {
     try {
-      // await onDelete(booking._id);
       handleDeleteBooking(booking._id)
       toast.success("Booking removed successfully!");
       handleClose();
@@ -137,7 +133,6 @@ const BookCard = ({
         color: "#ffffff",
         padding: "20px",
         borderRadius: "10px",
-        // marginBottom: "20px",
       }}
     >
     <div className="flex flex-col justify-between h-full">
@@ -152,7 +147,6 @@ const BookCard = ({
           </Typography>
 
           <Typography
-            // variant="h6"
             className="text-gray-800"
             style={{ marginBottom: "5px" }}
           >
@@ -165,7 +159,6 @@ const BookCard = ({
           </Typography>
 
           <Typography
-            // variant="h6"
             className="text-gray-800"
             style={{ marginBottom: "5px" }}
           >
@@ -174,22 +167,18 @@ const BookCard = ({
           
         </div>
       </div>
-      {/* <div className="flex justify-between items-center mb-3"> */}
         <div style={{ textAlign: "left", width: "50%" }}>
           <Typography 
-          // variant="h6" 
           className="text-gray-800"
           style={{ marginBottom: "5px" }}
           
           >
             Driver Name: {name}
           </Typography>
-        {/* </div> */}
       </div>
       <div className="flex justify-between items-center">
         <div style={{ textAlign: "left", width: "80%" }}>
           <Typography 
-          // variant="h6" 
           className="text-gray-800"
           style={{ marginBottom: "5px" }}
           >
@@ -217,14 +206,7 @@ const BookCard = ({
         >
           Cancel Booking
         </Button>)}
-  {/* <Button
-    variant="contained"
-    color="error"
-    onClick={handleOpen}
-    style={{ flex: 1 }}
-  >
-    Cancel Booking
-  </Button> */}
+  
 
         <Button
           variant="contained"
