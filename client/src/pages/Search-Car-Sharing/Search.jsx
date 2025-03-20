@@ -1,46 +1,44 @@
-import React, { useState , useRef} from "react";
+import React, { useState, useRef } from "react";
 import axios from "axios";
 import Navbar from "../../components/Navbar/Navbar.jsx";
 import GMap from "../../components/GMap/GMap";
 import { Autocomplete, useLoadScript } from "@react-google-maps/api";
-import { GMapAPI } from "../../keys";
 import TripList from "../../components/TripCard/TripList";
 import "./SearchTrip.css";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import LinearProgress from '@mui/material/LinearProgress';
+import LinearProgress from "@mui/material/LinearProgress";
 
-function SearchTrip({ user,setIsLoggedIn }) {
+function SearchTrip({ user, setIsLoggedIn }) {
   const [source, setSource] = useState("");
   const [destination, setDestination] = useState("");
   const [date, setDate] = useState(new Date());
   const [resdata, setResdata] = useState([]);
-  const [routeLoading, setRouteLoading] = useState();
+  const [routeLoading, setRouteLoading] = useState(false);
   const [directionResponses, setDirectionsResponses] = useState();
 
   const sourceRef = useRef();
   const destinationRef = useRef();
 
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: "AIzaSyClnzcci8V997acQhlpEiYhaLlz_ogR_Vc",
-    libraries: ["places"],
+    googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAP_API, // ✅ Correct key name
+    libraries: ["places"], // ✅ Declare this outside for performance!
   });
-  if (!isLoaded) return <div><LinearProgress/></div>;
+
+  if (!isLoaded) return <div><LinearProgress /></div>;
 
   async function calculateRoute() {
     if (source === "" || destination === "") {
       toast.error("Please enter Origin and Destination", {
         position: "top-right",
         autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
       });
       return;
     }
+
     setRouteLoading(true);
-    const directionsService = new window.google.maps.DirectionsService()
+
+    const directionsService = new window.google.maps.DirectionsService();
 
     try {
       const results = await directionsService.route({
@@ -49,23 +47,19 @@ function SearchTrip({ user,setIsLoggedIn }) {
         provideRouteAlternatives: true,
         travelMode: "DRIVING",
       });
+
       setRouteLoading(false);
 
       if (results.status !== "OK") {
         throw new Error("Error: " + results.status);
       }
+
       setDirectionsResponses(results);
     } catch (error) {
-      toast.error(`Error calculating route: ${error.message}`,
-        {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-        }
-      );
+      toast.error(`Error calculating route: ${error.message}`, {
+        position: "top-right",
+        autoClose: 5000,
+      });
       setRouteLoading(false);
     }
   }
@@ -73,6 +67,7 @@ function SearchTrip({ user,setIsLoggedIn }) {
   const onSourceChange = () => {
     setSource(sourceRef.current.value);
   };
+
   const handleDestinationChange = () => {
     setDestination(destinationRef.current.value);
   };
@@ -80,24 +75,28 @@ function SearchTrip({ user,setIsLoggedIn }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    setSource(sourceRef.current.value)
-    setDestination(destinationRef.current.value)
-    calculateRoute()
+    setSource(sourceRef.current.value);
+    setDestination(destinationRef.current.value);
+
+    calculateRoute();
+
     const data = {
-      source,
-      destination,
+      source: sourceRef.current.value,
+      destination: destinationRef.current.value,
       time: date,
-      user: user
+      user: user,
     };
+
     console.log(data);
+
     try {
       const response = await axios.post(
         "https://car-saathi.onrender.com/api/trip/findtrip",
         data
       );
+
       setResdata(response.data.trip);
-      console.log(resdata);
-      console.log("hi from search page");
+      console.log(response.data.trip);
     } catch (err) {
       if (err.response) {
         alert(err.response.data.message);
@@ -109,7 +108,7 @@ function SearchTrip({ user,setIsLoggedIn }) {
 
   return (
     <>
-      <Navbar user={user} setIsLoggedIn={setIsLoggedIn}/>
+      <Navbar user={user} setIsLoggedIn={setIsLoggedIn} />
       <div className="container flex flex-col">
         <div className="Top flex">
           <div className="left-section p-4">
@@ -132,9 +131,9 @@ function SearchTrip({ user,setIsLoggedIn }) {
                 <Autocomplete onPlaceChanged={handleDestinationChange}>
                   <input
                     type="text"
-                    required
                     placeholder="Enter destination location"
                     ref={destinationRef}
+                    required
                     className="appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
                   />
                 </Autocomplete>
@@ -153,13 +152,20 @@ function SearchTrip({ user,setIsLoggedIn }) {
               </button>
             </form>
           </div>
+
           <div className="left-section">
-          {<GMap apiKey={GMapAPI} start={source} end={destination} directionsResponses={directionResponses} />}
+            <GMap
+              start={source}
+              end={destination}
+              directionsResponses={directionResponses}
+            />
+          </div>
         </div>
-        </div>
+
         <div className="grid grid-cols-2">
           <TripList trips={resdata} />
         </div>
+
         <ToastContainer />
       </div>
     </>

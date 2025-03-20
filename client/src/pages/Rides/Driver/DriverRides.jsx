@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import Navbar from "../../../components/Navbar/Navbar.jsx";
-import TripCard from "../../../components/Cards/trip.jsx";
+import TripCard from "../../../components/TripCard/TripCard.jsx";
 import Paper from '@mui/material/Paper';
 import { styled as sty} from '@mui/material/styles';
 
