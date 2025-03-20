@@ -1,0 +1,79 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 2%;
+    padding-right: 2%;
+    width: 100%;
+}
+
+.left-section {
+    width: 100%;
+
+}
+
+.right-section {
+    width: 100%;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.label {
+    margin-bottom: 1rem;
+}
+
+.input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+}
+
+.search-btn {
+    background-color: #1976d2;
+    color: #ffffff;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 1rem;
+}
+
+.trip-list {
+    margin-top: 1rem;
+    width: 100%;
+}
+
+.trip-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    width: 100%;
+}
+
+.trip-details {
+    flex: 1;
+}
+
+.fare {
+    margin-left: auto;
+}
+
+.Bottom {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 0%;
+}
