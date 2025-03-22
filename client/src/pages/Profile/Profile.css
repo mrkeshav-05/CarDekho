@@ -1,0 +1,21 @@
+
+.backg {
+    position: relative;
+    font-family: Montserrat;
+}
+
+.backg::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(197.37deg, #fcfcfd -0.38%, rgba(138, 234, 240, 0) 101.89%), 
+                linear-gradient(115.93deg, #3E88F6 4.86%, rgba(133, 194, 229, 0.33) 38.05%, rgba(62, 235, 246, 0) 74.14%), 
+                radial-gradient(56.47% 76.87% at 6.92% 7.55%, rgba(126, 175, 249, 0.7) 0%, rgba(128, 185, 238, 0.182) 52.16%, rgba(110, 248, 248, 0) 100%), 
+                linear-gradient(306.53deg, #2EE4E3 19.83%, rgba(46, 228, 227, 0) 97.33%);
+    background-blend-mode: normal, normal, normal, normal, normal, normal;
+    filter: blur(100px);
+    z-index: -1;
+}
