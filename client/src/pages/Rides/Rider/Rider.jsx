@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../../../components/Navbar/Navbar.jsx";
-import BookCard from "../../../components/Cards/book.jsx";
+import BookCard from "../../../components/Card/book.jsx";
 import axios from "axios";
 import styled from "styled-components";
 import { LinearProgress } from "@mui/material";
