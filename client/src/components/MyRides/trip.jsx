@@ -11,7 +11,7 @@ const TripCard = ({ trip,setupdate}) => {
   const handleDelete = async()=>{
     try{
       console.log(trip);
-        const res=await axios.delete(`https://car-saathi.onrender.com/api/trip/deleteTrip/${trip._id}`)
+        const res=await axios.delete(`/api/trip/deleteTrip/${trip._id}`)
         console.log(res.data)
         setupdate((prev)=>!(prev))
     }catch(err){

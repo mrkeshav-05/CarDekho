@@ -43,6 +43,7 @@ export default function SignInSide({ user, setUser, isLoggedIn, setIsLoggedIn })
       localStorage.setItem("user", JSON.stringify(res.data.others));
       if (res.data.message) {
         alert(res.data.message);
+        console.log("error in if")
       } else {
         navigate("/");
       }
@@ -60,7 +61,7 @@ export default function SignInSide({ user, setUser, isLoggedIn, setIsLoggedIn })
   const googlesekar = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
-        axios.post("api/auth/google", {
+        axios.post("/api/auth/google", {
           username: result.user.displayName,
           email: result.user.email,
           image: result.user.photoURL,

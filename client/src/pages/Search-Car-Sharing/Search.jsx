@@ -91,7 +91,7 @@ function SearchTrip({ user, setIsLoggedIn }) {
 
     try {
       const response = await axios.post(
-        "https://car-saathi.onrender.com/api/trip/findtrip",
+        "/api/trip/findtrip",
         data
       );
 
