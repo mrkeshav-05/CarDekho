@@ -8,10 +8,12 @@ import { Tooltip } from "react-tooltip";
 
 function Navbar({ user, setIsLoggedIn }) {
   const navigate = useNavigate();
-
+  const [username, setUsername] = useState("");
   useEffect(() => {
     console.log("hello");
     console.log(user);
+    console.log(user.username);
+    setUsername(user.username);
   }, [user]);
 
   function Logout() {
@@ -28,7 +30,7 @@ function Navbar({ user, setIsLoggedIn }) {
     <nav className="bg-black p-4 flex justify-between items-center">
       <Link to="/" className="flex items-center text-white text-xl font-bold">
         <FaCar className="text-yellow-400 mr-2" />
-        <span className="logo-text">CarDekho</span>
+        <span className="logo-text">CarPool</span>
       </Link>
       <div className="w-[#80vw] bg-slate-500 text-center mr-72"></div>
       <ul className="flex justify-end space-x-10 flex-grow w-20 pr-12">
