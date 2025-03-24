@@ -15,7 +15,7 @@ import bookingroutes from "./routes/booking.route.js";
 import notificationroutes from "./routes/notifications.route.js";
 
 dotenv.config({ path: "./.env" });
-const PORT = 8001;
+const PORT = process.env.PORT || 8001;
 
 const app = express();
 
