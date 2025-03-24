@@ -16,7 +16,6 @@ import "react-toastify/dist/ReactToastify.css";
 import Snackbar from "@mui/material/Snackbar";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
-import { v4 as uuidv4 } from "uuid";
 
 const style = {
   position: "absolute",
@@ -41,14 +40,12 @@ const Profile = ({ user, setUser, setIsLoggedIn }) => {
   const [openSnack, setOpenSnack] = useState(false);
   const [openEditSnack, setOpenEditSnack] = useState(false);
   const [newPhoto, setNewPhoto] = useState(null);
-  const [flag,setflag]=useState(false)
+  const [flag, setflag] = useState(false);
 
   useEffect(() => {
     const getUser = async () => {
       try {
-        const res = await axios.get(
-          `/api/user/getUser/${params.id}`
-        );
+        const res = await axios.get(`/api/user/getUser/${params.id}`);
         setData(res.data.user);
       } catch (err) {
         console.log(err);
@@ -57,9 +54,7 @@ const Profile = ({ user, setUser, setIsLoggedIn }) => {
 
     const getRating = async () => {
       try {
-        const res = await axios.get(
-          `/api/reviews/getRating/${params.id}`
-        );
+        const res = await axios.get(`/api/reviews/getRating/${params.id}`);
         setProfileRating(res.data.rating);
       } catch (err) {
         console.log(err);
@@ -68,9 +63,7 @@ const Profile = ({ user, setUser, setIsLoggedIn }) => {
 
     const getReviews = async () => {
       try {
-        const res = await axios.get(
-          `/api/reviews/getReviews/${params.id}`
-        );
+        const res = await axios.get(`/api/reviews/getReviews/${params.id}`);
         // console.log(res.data)
         setReviews(res.data.reviews);
       } catch (err) {
@@ -81,7 +74,7 @@ const Profile = ({ user, setUser, setIsLoggedIn }) => {
     getUser();
     getRating();
     getReviews();
-  }, [params.id,flag]);
+  }, [params.id, flag]);
 
   const handleSubmit = async () => {
     try {
@@ -98,7 +91,7 @@ const Profile = ({ user, setUser, setIsLoggedIn }) => {
         `/api/reviews/addReview/${params.id}`,
         review
       );
-      setflag((p)=>!(p))
+      setflag((p) => !p);
       setComment("");
       setRating(0);
       handleClose();
@@ -156,74 +149,85 @@ const Profile = ({ user, setUser, setIsLoggedIn }) => {
     try {
       const formData = new FormData();
       formData.append("photo", newPhoto);
-      await axios.post(
-        `/api/user/updatePhoto/${params.id}`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      await axios.post(`/api/user/updatePhoto/${params.id}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       window.location.reload();
     } catch (err) {
       console.log(err);
     }
   };
+  console.log(data);
+  //               console.log("Profile Name:", data?.name);
 
   return (
     <div>
       <Navbar user={user} setIsLoggedIn={setIsLoggedIn} />
       <div className="p-20 backg">
         <div className=" p-6 rounded-md bg-white bg-opacity-30 z-20 text-[#171717]">
-        <div className="flex w-full justify-between">
-          <div className=" p-4 ">
+          <div className="flex w-full justify-between">
+            <div className=" p-4 ">
               <div className="font-bold text-lg">{data?.username}</div>
-              <div className="">Name: {data?.name}</div>
+              {/* <div className="">Name: {data?.username}</div> */}
               <div className="email">Email: {data?.email}</div>
               <div className="age">Age: {data?.age}</div>
-              <div className="location">Location: {data?.location}</div>
-              <div className="gender">Gender: {data?.gender}</div>
-          </div>
-          <div className=" flex flex-col p-10"> 
-          <label htmlFor="photo-upload" className="">
-            <input
-              type="file"
-              id="photo-upload"
-              accept="image/*"
-              onChange={handlePhotoChange}
-              style={{ display: "none" }}
-            />
-            <Avatar src={`https://ui-avatars.com/api/?name=${data?.name}&background=random`} sx={{ width: 60, height: 60 }} className="avatar" />
-          </label>
-          <div className="p-4 text-center">{Math.round(profileRating * 100) / 100}⭐</div>
+
+                
+            </div>
+            <div className=" flex flex-col p-10">
+              <label htmlFor="photo-upload" className="">
+                <input
+                  type="file"
+                  id="photo-upload"
+                  accept="image/*"
+                  onChange={handlePhotoChange}
+                  style={{ display: "none" }}
+                />
+                        <Avatar src={`https://ui-avatars.com/api/?name=${data?.username}&background=random`} sx={{ width: 60, height: 60 }} className="avatar" />
+
+                {/* <Avatar src={`https://ui-avatars.com/api/?name=${data?.name}&background=random`} sx={{ width: 60, height: 60 }} className="avatar" /> */}
+              </label>
+              <div className="p-4 text-center">
+                {Math.round(profileRating * 100) / 100}⭐
+              </div>
+            </div>
           </div>
 
-        </div>
-
-        <div className=""></div>
-        <div className="">
-          <div className="w-1/2 float-left mr-4">
-          </div>
+          <div className=""></div>
+          <div className="">
+            <div className="w-1/2 float-left mr-4"></div>
             <div className="p-4">
-                        <div className="font-bold text-xl">Reviews</div>
-                      { user._id!=params.id && <button onClick={handleOpen} className="bg-[#1976d2] text-[#f2f2f2] p-2 rounded-md my-2">Add review</button>}
-                      <div className="grid grid-cols-3 gap-3 mt-3">
-                        {
-                            reviews?.map(review=>{
-                                return (
-                                    <div className="review-card">
-                                       <ReviewCard review={review} setOpenSnack={setOpenSnack} setOpenEditSnack={setOpenEditSnack} data={data}/>
-                                    </div>
-                                )
-                            })
-                        }
-
-                        {reviews?.length==0 && <div className="text-slate-400">No reviews yet</div>}
-                        </div>
-                        
+              <div className="font-bold text-xl">Reviews</div>
+              {user._id != params.id && (
+                <button
+                  onClick={handleOpen}
+                  className="bg-[#1976d2] text-[#f2f2f2] p-2 rounded-md my-2"
+                >
+                  Add review
+                </button>
+              )}
+              <div className="grid grid-cols-3 gap-3 mt-3">
+                {reviews?.map((review) => {
+                  return (
+                    <div className="review-card">
+                      <ReviewCard
+                        review={review}
+                        setOpenSnack={setOpenSnack}
+                        setOpenEditSnack={setOpenEditSnack}
+                        data={data}
+                      />
                     </div>
-        </div>
+                  );
+                })}
+
+                {reviews?.length == 0 && (
+                  <div className="text-slate-400">No reviews yet</div>
+                )}
+              </div>
+            </div>
+          </div>
         </div>
         <Modal
           open={open}
@@ -258,7 +262,11 @@ const Profile = ({ user, setUser, setIsLoggedIn }) => {
               />
             </div>
             <div className="flex justify-end mt-5">
-              <Button onClick={handleSubmit} color="primary" variant="contained" >
+              <Button
+                onClick={handleSubmit}
+                color="primary"
+                variant="contained"
+              >
                 Add Review
               </Button>
             </div>
