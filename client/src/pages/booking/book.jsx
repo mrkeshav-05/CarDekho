@@ -52,7 +52,7 @@ function BookingPage({ user, setUser, setIsLoggedIn }) {
     };
 
     try {
-      const response = await axios.post('https://car-saathi.onrender.com/api/booking/booktrip', data);
+      const response = await axios.post('/api/booking/booktrip', data);
       navigate('/mybooking');
     } catch (err) {
       if (err.response && err.response.status === 400) {
@@ -82,7 +82,7 @@ function BookingPage({ user, setUser, setIsLoggedIn }) {
 
     try {
       const res = await axios.post(
-        "https://car-saathi.onrender.com/api/payment/create-order",
+        "/api/payment/create-order",
         body2
       );
       const { orderId, amount } = res.data;

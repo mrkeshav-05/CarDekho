@@ -47,7 +47,7 @@ const Profile = ({ user, setUser, setIsLoggedIn }) => {
     const getUser = async () => {
       try {
         const res = await axios.get(
-          `https://car-saathi.onrender.com/api/user/getUser/${params.id}`
+          `/api/user/getUser/${params.id}`
         );
         setData(res.data.user);
       } catch (err) {
@@ -58,7 +58,7 @@ const Profile = ({ user, setUser, setIsLoggedIn }) => {
     const getRating = async () => {
       try {
         const res = await axios.get(
-          `https://car-saathi.onrender.com/api/reviews/getRating/${params.id}`
+          `/api/reviews/getRating/${params.id}`
         );
         setProfileRating(res.data.rating);
       } catch (err) {
@@ -69,7 +69,7 @@ const Profile = ({ user, setUser, setIsLoggedIn }) => {
     const getReviews = async () => {
       try {
         const res = await axios.get(
-          `https://car-saathi.onrender.com/api/reviews/getReviews/${params.id}`
+          `/api/reviews/getReviews/${params.id}`
         );
         // console.log(res.data)
         setReviews(res.data.reviews);
@@ -95,7 +95,7 @@ const Profile = ({ user, setUser, setIsLoggedIn }) => {
         Date: new Date(),
       };
       const res = await axios.post(
-        `https://car-saathi.onrender.com/api/reviews/addReview/${params.id}`,
+        `/api/reviews/addReview/${params.id}`,
         review
       );
       setflag((p)=>!(p))
@@ -157,7 +157,7 @@ const Profile = ({ user, setUser, setIsLoggedIn }) => {
       const formData = new FormData();
       formData.append("photo", newPhoto);
       await axios.post(
-        `https://car-saathi.onrender.com/api/user/updatePhoto/${params.id}`,
+        `/api/user/updatePhoto/${params.id}`,
         formData,
         {
           headers: {

@@ -17,7 +17,7 @@ const TripCard = ({trip, user}) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`https://car-saathi.onrender.com/api/user/getUser/${driver}`);
+        const response = await axios.get(`/api/user/getUser/${driver}`);
         const { name, phone } = response.data.user;
         setDrivername(name);
         setDriverMobileNumber(phone);
