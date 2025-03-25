@@ -20,6 +20,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { auth, provider } from "../firebase.js";
 import { signInWithPopup } from "firebase/auth";
 import GoogleButton from 'react-google-button';
+import { useAuthContext } from "../../context/AuthContext.jsx";
 
 export default function SignInSide({ user, setUser, isLoggedIn, setIsLoggedIn }) {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ export default function SignInSide({ user, setUser, isLoggedIn, setIsLoggedIn })
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [showPassword, setShowPassword] = React.useState(false);
-
+  const {authUser, setAuthUser} = useAuthContext();
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -37,10 +38,12 @@ export default function SignInSide({ user, setUser, isLoggedIn, setIsLoggedIn })
     event.preventDefault();
     const formdata = { email, password };
     try {
-      const res = await axios.post("/auth/signin", formdata);
-      setUser(res.data.others);
+      const res = await axios.post("/api/auth/signin", formdata);
+      // setUser(res.data.others);
       setIsLoggedIn(true);
+      console.log(res.data.others);
       localStorage.setItem("user", JSON.stringify(res.data.others));
+      setAuthUser(res.data.others);
       if (res.data.message) {
         alert(res.data.message);
         console.log("error in if")
@@ -58,16 +61,18 @@ export default function SignInSide({ user, setUser, isLoggedIn, setIsLoggedIn })
     }
   };
 
-  const googlesekar = () => {
-    signInWithPopup(auth, provider)
+  const googlesekar = async () => {
+    await signInWithPopup(auth, provider)
       .then((result) => {
         axios.post("/api/auth/google", {
           username: result.user.displayName,
           email: result.user.email,
           image: result.user.photoURL,
         }).then((res) => {
-          setUser(res.data);
+          // setUser(res.data);
+          setIsLoggedIn(true);
           localStorage.setItem("user", JSON.stringify(res.data));
+          setAuthUser(res.data);
           navigate("/");
         });
       })

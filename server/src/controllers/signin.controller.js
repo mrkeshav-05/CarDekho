@@ -6,6 +6,7 @@ const secret = "This#*(%i#s%@*&(*(c&a&r))>><><dheggefj";
 export const signin = async (req, res, next) => {
 
     try {
+      console.log(req.body.email);
       const user = await User.findOne({ email: req.body.email });
       if (!user) res.status(500).json({message:"Email not Found"});
       else{
