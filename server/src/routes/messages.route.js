@@ -1,9 +1,9 @@
 import express from "express";
-import { newMessage,getMessages } from '../controllers/message.controller.js'
+import { getMessages, sendMessages } from '../controllers/message.controller.js'
 const router = express.Router();
 
 //Routes for auth api
-router.post("/",newMessage);
-router.get("/:conversationId",getMessages);
+router.post("/:id", getMessages);
+router.get("/send/:id", sendMessages);
 
 export default router;
