@@ -4,17 +4,31 @@ import io from "socket.io-client";
 const SocketContext = createContext();
 
 export const useSocketContext = () => {
-  return useContext(SocketContext);
+    return useContext(SocketContext);
 };
+
+const userSocketMap = {}; // {userId: socketId}
 
 export const SocketContextProvider = ({ children }) => {
     const [socket, setSocket] = useState(null);
+    const user = JSON.parse(localStorage.getItem("user"));
 
     useEffect(() => {
-        const newSocket = io("http://localhost:8000"); // Backend URL
-        setSocket(newSocket);
+        if (user) {
+            const socket = io("http://localhost:8000", {
+                query: {
+                    userId: user._id,
+                },
+            });
+            setSocket(socket);
 
-        return () => newSocket.disconnect();
+            return () => socket.close();
+        } else {
+            if (socket) {
+                socket.close();
+                setSocket(null);
+            }
+        }
     }, []);
 
     return (

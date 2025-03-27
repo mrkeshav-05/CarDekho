@@ -16,16 +16,14 @@ import notificationroutes from "./routes/notifications.route.js";
 import http from "http";
 
 // socket
-import initializeSocket from "./socket/socket.js";
+import {server, io, app} from "./socket/socket.js";
 
 
 dotenv.config({ path: "./.env" });
 const PORT = process.env.PORT || 8001;
 
 
-const app = express();
-const server = http.createServer(app);
-const io = initializeSocket(server);
+
 
 
 
