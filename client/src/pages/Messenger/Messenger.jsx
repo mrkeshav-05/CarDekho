@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Navbar from "../../components/Navbar/Navbar";
 
 // const users = [
 //     { id: 1, name: "Alice" },
@@ -6,7 +7,7 @@ import React, { useState } from "react";
 //     { id: 3, name: "Charlie" },
 // ];
 
-const Messenger = () => {
+const Messenger = ({ user, setUser, setIsLoggedIn }) => {
     const [selectedUser, setSelectedUser] = useState(null);
     const [messages, setMessages] = useState({});
     const [input, setInput] = useState("");
@@ -21,8 +22,11 @@ const Messenger = () => {
     };
 
     return (
-        <div className="flex h-screen">
+        <div >
+        <Navbar user={user} setIsLoggedIn={setIsLoggedIn} />
+  
             {/* People Section */}
+            <div className="flex h-screen">
             <div className="w-1/3 bg-gray-100 p-4 border-r">
                 <h2 className="text-lg font-semibold mb-4">People</h2>
                 <ul>
@@ -76,6 +80,7 @@ const Messenger = () => {
                         No messages yet
                     </p>
                 )}
+            </div>
             </div>
         </div>
     );
