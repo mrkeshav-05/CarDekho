@@ -14,7 +14,7 @@ import DriverRides from './pages/Rides/Driver/DriverRides.jsx';
 import ResetPassword from './pages/Reset/Reset.jsx';
 import { ContactUs } from './pages/ContactUs/contact.jsx';
 import { PersonalInfo } from './Routes.js';
-
+import Messenger from './pages/Messenger/Messenger.jsx';
 function App() {
   const [user, setUser] = useState(
     JSON.parse(localStorage.getItem("user")) || {}
@@ -44,7 +44,7 @@ function App() {
 
         {/* Added Profile Route */}
         <Route path="/profile/:id" element={<Profile user={user} setUser={setUser} setIsLoggedIn={setIsLoggedIn} />} />
-
+        <Route path="/messenger" element={<Messenger user={user} setUser={setUser} currentChat={currentChat} setCurrentChat={setCurrentChat} setIsLoggedIn={setIsLoggedIn}/>}></Route>
         <Route path="/personal" element={<PersonalInfo user={user} setUser={setUser} setIsLoggedIn={setIsLoggedIn} />} />
         <Route path="/myrides" element={<DriverRides user={user} setIsLoggedIn={setIsLoggedIn} currentChat={currentChat} setCurrentChat={setCurrentChat} />} />
         <Route path="/mybooking" element={<Rider user={user} setCurrentChat={setCurrentChat} currentChat={currentChat} setIsLoggedIn={setIsLoggedIn} />} />
