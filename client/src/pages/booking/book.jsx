@@ -1,4 +1,4 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import Navbar from "../../components/Navbar/Navbar.jsx";
 import "./book.css";
 import axios from "axios";
@@ -52,8 +52,8 @@ function BookingPage({ user, setUser, setIsLoggedIn }) {
     };
 
     try {
-      const response = await axios.post('/api/booking/booktrip', data);
-      navigate('/mybooking');
+      const response = await axios.post("/api/booking/booktrip", data);
+      navigate("/mybooking");
     } catch (err) {
       if (err.response && err.response.status === 400) {
         alert("Not enough seats");
@@ -76,22 +76,19 @@ function BookingPage({ user, setUser, setIsLoggedIn }) {
     }
 
     const body2 = {
-      amount: seatsToBook * trip.fare * 100, // Razorpay expects amount in paise
+      amount: seatsToBook * trip.fare , // Razorpay expects amount in paise
       currency: "INR",
     };
 
     try {
-      const res = await axios.post(
-        "/api/payment/create-order",
-        body2
-      );
+      const res = await axios.post("/api/payment/create-order", body2);
       const { orderId, amount } = res.data;
 
       const options = {
         key: "rzp_test_i44QxKNFFcOiCg", // Your Razorpay test key
         amount: amount,
         currency: "INR",
-        name: "Car-Saathi",
+        name: "CarPool",
         description: "Payment for CarPooling Booking",
         order_id: orderId,
         handler: function (response) {
@@ -126,50 +123,80 @@ function BookingPage({ user, setUser, setIsLoggedIn }) {
   };
 
   return (
-    <div
-      className="booking-page"
-      style={{
-        backgroundImage: `url('https://cdn.pixabay.com/photo/2014/04/27/00/43/traffic-332857_1280.jpg')`,
-      }}
-    >
+    <div className="booking-page relative">
+      {/* Navbar */}
       <Navbar user={user} setIsLoggedIn={setIsLoggedIn} />
-      <div className="booking-container">
-        <div className="input-group">
-          <label htmlFor="seatsToBook">Seats To Book:</label>
-          <input
-            type="number"
-            id="seatsToBook"
-            value={seatsToBook}
-            onChange={handleSeatsToBookChange}
-          />
-        </div>
-        <div className="input-group">
-          <label htmlFor="seatPreference">Seat Preference:</label>
-          <select
-            id="seatPreference"
-            value={seatPreference}
-            onChange={handleSeatPreferenceChange}
-          >
-            <option value="">Select Preference</option>
-            <option value="front">Front</option>
-            <option value="back">Back</option>
-            <option value="middle">Middle</option>
-            <option value="rightWindow">Right Side Window</option>
-            <option value="leftWindow">Left Side Window</option>
-          </select>
-        </div>
-        <div className="input-group">
-          <label htmlFor="remarks">Any Other Remarks:</label>
-          <input
-            type="text"
-            id="remarks"
-            value={remarks}
-            onChange={handleRemarksChange}
-          />
-        </div>
-        <button className="proceed-payment-btn" onClick={initiatePayment}>
-          Proceed to Payment
-        </button>
+
+      {/* Background Image (Below Navbar) */}
+      <div className="absolute top-[10px] bottom-0 left-30 right-30 h-full mx-15 bg-center bg-no-repeat bg-cover opacity-30 -z-10 rounded-2xl bg-[url('https://img.freepik.com/free-photo/online-payment-security-concept-3d-phone-bill_107791-16722.jpg?t=st=1743356421~exp=1743360021~hmac=23c31ebd539fa501cc7ed8f3ebfa44112c74f8ebf6fb0b8eb024fd8cbdc5712e&w=1800')]"></div>      {/* Content */}
+      <div className="booking-container bg-transparent bg-opacity-10 p-6">
+        {/* Booking Container (Unchanged) */}
+      {/* Booking Container */}
+<div className="booking-container  bg-amber-100">
+  <h2 className="text-2xl font-bold text-black mb-4 text-center">
+    🎟 Book Your Seats
+  </h2>
+
+  {/* Seats Input */}
+  <div className="input-group mb-4">
+    <label htmlFor="seatsToBook" className="text-black block font-medium">
+      Seats To Book:
+    </label>
+    <input
+      type="number"
+      id="seatsToBook"
+      value={seatsToBook}
+      min="0"
+      onChange={(e) => {
+        const value = Math.max(0, parseInt(e.target.value) || 0); 
+        handleSeatsToBookChange({ target: { value } });
+      }}
+      className="w-full px-4 py-2 rounded-lg bg-blue-400 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-md"
+    />
+  </div>
+
+  {/* Seat Preference */}
+  <div className="input-group mb-4">
+    <label htmlFor="seatPreference" className="text-black block font-medium">
+      Seat Preference:
+    </label>
+    <select
+      id="seatPreference"
+      value={seatPreference}
+      onChange={handleSeatPreferenceChange}
+      className="w-full px-4 py-2 rounded-lg bg-blue-400 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-md"
+    >
+      <option value="">Select Preference</option>
+      <option value="front">Front</option>
+      <option value="back">Back</option>
+      <option value="middle">Middle</option>
+      <option value="rightWindow">Right Side Window</option>
+      <option value="leftWindow">Left Side Window</option>
+    </select>
+  </div>
+
+  {/* Remarks */}
+  <div className="input-group mb-4">
+    <label htmlFor="remarks" className="text-black block font-medium">
+      Any Other Remarks:
+    </label>
+    <input
+      type="text"
+      id="remarks"
+      value={remarks}
+      onChange={handleRemarksChange}
+      className="w-full px-4 py-2 rounded-lg bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-md"
+    />
+  </div>
+
+  {/* Payment Button */}
+  <button
+    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg shadow-lg transition duration-300 ease-in-out transform hover:scale-105"
+    onClick={initiatePayment}
+  >
+    Proceed to Payment 💳
+  </button>
+</div>
       </div>
     </div>
   );

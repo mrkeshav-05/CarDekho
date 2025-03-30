@@ -5,7 +5,7 @@
 }
 
 .booking-container {
-    background-color: rgba(255, 255, 255, 0.8);
+   
     padding: 20px;
     border-radius: 10px;
     margin: 50px auto;
@@ -13,6 +13,7 @@
 }
 
 .input-group {
+   color: black;
     margin-bottom: 20px;
 }
 
