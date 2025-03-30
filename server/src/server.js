@@ -13,6 +13,7 @@ import messageroutes from "./routes/messages.route.js";
 import triproutes from "./routes/trips.route.js";
 import bookingroutes from "./routes/booking.route.js";
 import notificationroutes from "./routes/notifications.route.js";
+import paymentroutes from "./routes/payment.route.js";
 
 
 // socket
@@ -55,6 +56,7 @@ app.use("/api/message", messageroutes);
 app.use("/api/trip", triproutes);
 app.use("/api/booking", bookingroutes);
 app.use("/api/notifications", notificationroutes);
+app.use("/api/payment", paymentroutes);
 
 // ✅ Global error handler
 app.use((err, req, res, next) => {
