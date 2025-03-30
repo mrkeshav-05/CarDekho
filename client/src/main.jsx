@@ -6,10 +6,10 @@ import { SocketContextProvider } from './context/SocketContext.jsx'
 import { AuthContextProvider } from './context/AuthContext.jsx'
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <SocketContextProvider>
+    {/* <SocketContextProvider> */}
       <AuthContextProvider>
         <App />
       </AuthContextProvider>
-    </SocketContextProvider>
+    {/* </SocketContextProvider> */}
   </StrictMode>,
 )

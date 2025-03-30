@@ -13,15 +13,15 @@ import messageroutes from "./routes/messages.route.js";
 import triproutes from "./routes/trips.route.js";
 import bookingroutes from "./routes/booking.route.js";
 import notificationroutes from "./routes/notifications.route.js";
-import http from "http";
+
 
 // socket
-import {server, io, app} from "./socket/socket.js";
-
+// import {server, io, app} from "./socket/socket.js";
 
 dotenv.config({ path: "./.env" });
 const PORT = process.env.PORT || 8001;
 
+const app = express();
 
 
 
@@ -75,7 +75,7 @@ app.get("/", (req, res) => {
 // ✅ Start Server after DB Connection
 connectDB()
     .then(() => {
-        server.listen(PORT, () => {
+        app.listen(PORT, () => {
             console.log(`✅ Server is running at: http://localhost:${PORT}`);
         });
     })
