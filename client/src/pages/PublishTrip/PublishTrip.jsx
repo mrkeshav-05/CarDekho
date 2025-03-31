@@ -45,11 +45,7 @@ function PublishTrip({ user, setUser, setIsLoggedIn }) {
   const navigate = useNavigate();
   const sourceRef = useRef();
   const destinationRef = useRef();
-  const [routeLoading, setRouteLoading] = useState();
   const [directionResponses, setDirectionsResponses] = useState();
-
-
-
   const [isOpen, setIsOpen] = useState(false);
 
   const handlePublishClick = () => {
