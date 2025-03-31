@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Dashboard from './pages/Dashboard/Dashboard.jsx';
 import Profile from './pages/Profile/Profile.jsx';
-import BookingInfo from './pages/BookingInfo/Info.jsx';
+import BookingInfo from './pages/BookingInfo/info.jsx';
 import BookingPage from './pages/booking/book.jsx';
 import { useState, useEffect } from 'react';
 import Search from './pages/Search-Car-Sharing/Search.jsx';
