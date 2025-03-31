@@ -10,6 +10,8 @@ import Modal from "@mui/material/Modal";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -79,7 +81,7 @@ const BookCard = ({
     const getConversation = async () => {
       try {
         const res = await axios.get(
-          "/api/conversation/getConversation/" +
+          `${backendUrl}/api/conversation/getConversation/` +
             booking.Bookingperson
         );
         let conversations = res.data;
@@ -96,7 +98,7 @@ const BookCard = ({
           }
         } else {
           const res = await axios.post(
-            "/api/conversation/",
+            `${backendUrl}/api/conversation/`,
             { senderId: booking.Bookingperson, receiverId: booking.Driver }
           );
           setCurrentChat(res.data);

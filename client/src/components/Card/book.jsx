@@ -11,6 +11,8 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -77,12 +79,11 @@ const BookCard = ({
   const bookDate = new Date(booking.Date);
   const textColorClass = bookDate < today ? 'text-red-900' : 'text-green-900';
   const navigate = useNavigate();
-  
   const handleMessageClick = () => {
     const getConversation = async () => {
       try {
         const res = await axios.get(
-          "https://car-saathi.onrender.com/api/conversation/getConversation/" +
+          `${backendUrl}/api/conversation/getConversation/` +
             booking.Bookingperson
         );
         let conversations = res.data;
@@ -98,7 +99,7 @@ const BookCard = ({
           }
         } else {
           const res = await axios.post(
-            "https://car-saathi.onrender.com/api/conversation/",
+            `${backendUrl}/api/conversation/`,
             { senderId: booking.Bookingperson, receiverId: booking.Driver }
           );
           setCurrentChat(res.data);

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const ResetPassword = () => {
   const [email, setEmail] = useState("");
@@ -24,7 +25,7 @@ const ResetPassword = () => {
     try {
       console.log(password);
       const response = await axios.get(
-        `https://car-saathi.onrender.com/api/auth/reset-password/${token}`,
+        `${backendUrl}/api/auth/reset-password/${token}`,
         {
           params: {
             password: password,

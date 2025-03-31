@@ -2,6 +2,7 @@ import { createContext, useState, useEffect, useContext } from "react";
 import io from "socket.io-client";
 import { useAuthContext } from "./AuthContext";
 import { auth } from "../pages/firebase";
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const SocketContext = createContext();
 
@@ -18,7 +19,7 @@ export const SocketContextProvider = ({ children }) => {
     const [onlineUsers, setOnlineUsers] = useState([]);
     useEffect(() => {
         if (user) {
-            const socket = io("http://localhost:8000", {
+            const socket = io(`${backendUrl}`, {
                 query: {
                     userId: user._id,
                 },

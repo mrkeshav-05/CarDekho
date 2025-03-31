@@ -21,6 +21,7 @@ import { auth, provider } from "../firebase.js";
 import { signInWithPopup } from "firebase/auth";
 import GoogleButton from 'react-google-button';
 import { useAuthContext } from "../../context/AuthContext.jsx";
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 export default function SignInSide({ user, setUser, isLoggedIn, setIsLoggedIn }) {
   const navigate = useNavigate();
@@ -38,7 +39,7 @@ export default function SignInSide({ user, setUser, isLoggedIn, setIsLoggedIn })
     event.preventDefault();
     const formdata = { email, password };
     try {
-      const res = await axios.post("/api/auth/signin", formdata);
+      const res = await axios.post(`${backendUrl}/api/auth/signin`, formdata);
       // setUser(res.data.others);
       setIsLoggedIn(true);
       console.log(res.data.others);
@@ -64,7 +65,7 @@ export default function SignInSide({ user, setUser, isLoggedIn, setIsLoggedIn })
   const googlesekar = async () => {
     await signInWithPopup(auth, provider)
       .then((result) => {
-        axios.post("/api/auth/google", {
+        axios.post(`${backendUrl}/api/auth/google`, {
           username: result.user.displayName,
           email: result.user.email,
           image: result.user.photoURL,

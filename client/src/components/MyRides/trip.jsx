@@ -2,6 +2,8 @@ import React from "react";
 import { Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import axios from "axios";
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
 const TripCard = ({ trip,setupdate}) => {
   const today = new Date();
   const tripDate = new Date(trip.time);
@@ -11,7 +13,7 @@ const TripCard = ({ trip,setupdate}) => {
   const handleDelete = async()=>{
     try{
       console.log(trip);
-        const res=await axios.delete(`/api/trip/deleteTrip/${trip._id}`)
+        const res=await axios.delete(`${backendUrl}/api/trip/deleteTrip/${trip._id}`)
         console.log(res.data)
         setupdate((prev)=>!(prev))
     }catch(err){

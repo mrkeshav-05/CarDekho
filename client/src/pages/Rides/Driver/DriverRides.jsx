@@ -5,6 +5,7 @@ import Navbar from "../../../components/Navbar/Navbar.jsx";
 import TripCard from "../../../components/TripCard/TripCard.jsx";
 import Paper from '@mui/material/Paper';
 import { styled as sty} from '@mui/material/styles';
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const DemoPaper = sty(Paper)(({ theme }) => ({
   width: 120,
@@ -47,7 +48,7 @@ function DriverRides({ user, setIsLoggedIn,setCurrentChat,
     const getTrips = async () => {
       try {
         const response = await axios.get(
-          `/api/trip/mytrips/${user._id}`
+          `${backendUrl}/api/trip/mytrips/${user._id}`
         );
         // console.log(user._id);
         console.log(response.data.trips);

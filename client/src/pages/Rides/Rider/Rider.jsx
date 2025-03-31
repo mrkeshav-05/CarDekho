@@ -4,6 +4,7 @@ import BookCard from "../../../components/Card/book.jsx";
 import axios from "axios";
 import styled from "styled-components";
 import { LinearProgress } from "@mui/material";
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const Title = styled.h1`
   font-size: 2.5rem;
@@ -43,7 +44,7 @@ function Rider({ user, setCurrentChat, currentChat, setIsLoggedIn }) {
         bookings.map(async (booking) => {
           try {
             const res = await axios.get(
-              `/api/user/getUser/${booking.Driver}`
+              `${backendUrl}/api/user/getUser/${booking.Driver}`
             );
             names[booking._id] = res.data.user.name;
             phones[booking._id] = res.data.user.phone;
@@ -68,7 +69,7 @@ function Rider({ user, setCurrentChat, currentChat, setIsLoggedIn }) {
     const getBookings = async () => {
       try {
         const response = await axios.get(
-          `/api/booking/mybookings/${user._id}`
+          `${backendUrl}/api/booking/mybookings/${user._id}`
         );
         console.log(response);
         console.log(response.data)
@@ -100,7 +101,7 @@ function Rider({ user, setCurrentChat, currentChat, setIsLoggedIn }) {
 
   const handleDeleteBooking = async (bookingId) => {
     try {
-        await axios.delete(`/api/booking/cancelbooking/${bookingId}`);
+        await axios.delete(`${backendUrl}/api/booking/cancelbooking/${bookingId}`);
         // Update bookings state after successful deletion
         setBookings(bookings.filter(booking => booking._id !== bookingId));
     } catch (error) {

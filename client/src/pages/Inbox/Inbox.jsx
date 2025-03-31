@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from '../../components/Navbar/Navbar';
 import axios from "axios";
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const Inbox = ({ user, setUser,setIsLoggedIn }) => {
   const [notifications, setNotifications] = useState([]);
@@ -12,7 +13,7 @@ const Inbox = ({ user, setUser,setIsLoggedIn }) => {
         try{
           const data = { userId: user._id }; // Pass user ID as an object with userId property
     console.log(user._id);
-    const response = await axios.post('https://car-saathi.onrender.com/api/notifications/booknotify', data, {
+    const response = await axios.post(`${backendUrl}/api/notifications/booknotify`, data, {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -29,7 +30,7 @@ const Inbox = ({ user, setUser,setIsLoggedIn }) => {
   useEffect(()=>{
     const getNotifications = async()=>{
       try{
-        const res = await axios.get(`https://car-saathi.onrender.com/api/notifications/getnotifications/${user._id}`)
+        const res = await axios.get(`${backendUrl}/api/notifications/getnotifications/${user._id}`)
         console.log(res.data.notifications);
         setNotifications(res.data.notifications)
       }

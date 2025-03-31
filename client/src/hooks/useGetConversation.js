@@ -1,4 +1,5 @@
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const useGetConversation = () => {
   const [loading, setLoading] = useState(false);
@@ -8,7 +9,7 @@ const useGetConversation = () => {
 		const getConversations = async () => {
 			setLoading(true);
 			try {
-				const res = await fetch("/api/users")
+				const res = await fetch(`${backendUrl}/api/users`)
 				console.log(res.json)
 				const data = await res.json();
 				console.log(data)

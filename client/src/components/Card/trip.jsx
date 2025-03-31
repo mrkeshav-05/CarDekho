@@ -5,6 +5,7 @@ import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import axios from "axios";
 import BookerButton from "./BookerButton";
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 const TripCard = ({ trip, setupdate, setCurrentChat, currentChat }) => {
   console.log("current chat in trip card component", currentChat);
   console.log(trip);
@@ -21,7 +22,7 @@ const TripCard = ({ trip, setupdate, setCurrentChat, currentChat }) => {
   const handleDelete = async () => {
     try {
       console.log(trip);
-      const res = await axios.delete(`https://car-saathi.onrender.com/api/trip/deleteTrip/${trip._id}`);
+      const res = await axios.delete(`${backendUrl}/api/trip/deleteTrip/${trip._id}`);
       console.log(res.data);
       setupdate((prev) => !prev);
     } catch (err) {
@@ -31,7 +32,7 @@ const TripCard = ({ trip, setupdate, setCurrentChat, currentChat }) => {
 
   const getUser = async (id) => {
     try {
-      const res = await axios.get(`https://car-saathi.onrender.com/api/user/getUser/${id}`);
+      const res = await axios.get(`${backendUrl}/api/user/getUser/${id}`);
       const user = res.data.user;
       setBookerDetails((prev) => {
         const newMap = new Map(prev);

@@ -4,6 +4,9 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
 export default function BookerButton({user,curruser,currentChat,setCurrentChat}) {
     console.log(curruser)
     console.log("BookerButton props:", { setCurrentChat, currentChat });
@@ -20,7 +23,7 @@ export default function BookerButton({user,curruser,currentChat,setCurrentChat})
     const getConversation = async () => {
       try {
         const res = await axios.get(
-          "https://car-saathi.onrender.com/api/conversation/getConversation/" +
+          `${backendUrl}/api/conversation/getConversation/` +
             user._id
         );
         let conversations = res.data;
@@ -38,7 +41,7 @@ export default function BookerButton({user,curruser,currentChat,setCurrentChat})
           }
         } else {
           const res = await axios.post(
-            "https://car-saathi.onrender.com/api/conversation/",
+            `${backendUrl}/api/conversation/`,
             { senderId: curruser, receiverId: user._id }
           );
           console.log(res.data)

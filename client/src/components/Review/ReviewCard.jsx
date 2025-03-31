@@ -26,6 +26,8 @@ import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import { TextField } from '@mui/material';
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
 const style = {
   position: 'absolute',
   top: '50%',
@@ -75,7 +77,7 @@ export default function RecipeReviewCard({data,review,setOpenSnack,setOpenEditSn
         Date: review.Date
     }
       console.log("edited review input",review)
-      const res = await axios.patch(`https://car-saathi.onrender.com/api/reviews/editReview/${params.id}`,{editedReview:newreview});
+      const res = await axios.patch(`${backendUrl}/api/reviews/editReview/${params.id}`,{editedReview:newreview});
       console.log(res.data);
       setOpenEditSnack(true)
       handleClose();
@@ -89,7 +91,7 @@ export default function RecipeReviewCard({data,review,setOpenSnack,setOpenEditSn
 const handleDelete = async() => {
     // Handle delete functionality
     try{
-      const res = await axios.delete(`https://car-saathi.onrender.com/api/reviews/deleteReview/${params.id}/${review._id}`);
+      const res = await axios.delete(`${backendUrl}/api/reviews/deleteReview/${params.id}/${review._id}`);
       console.log(res.data);
       setOpenSnack(true)
 

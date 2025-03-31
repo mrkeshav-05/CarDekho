@@ -3,6 +3,7 @@ import Navbar from "../../components/Navbar/Navbar.jsx";
 import "./book.css";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 function BookingPage({ user, setUser, setIsLoggedIn }) {
   const [seatsToBook, setSeatsToBook] = useState();
@@ -52,7 +53,7 @@ function BookingPage({ user, setUser, setIsLoggedIn }) {
     };
 
     try {
-      const response = await axios.post("/api/booking/booktrip", data);
+      const response = await axios.post(`${backendUrl}/api/booking/booktrip`, data);
       navigate("/mybooking");
     } catch (err) {
       if (err.response && err.response.status === 400) {
@@ -81,7 +82,7 @@ function BookingPage({ user, setUser, setIsLoggedIn }) {
     };
 
     try {
-      const res = await axios.post("/api/payment/create-order", body2);
+      const res = await axios.post(`${backendUrl}/api/payment/create-order`, body2);
       const { orderId, amount } = res.data;
 
       const options = {

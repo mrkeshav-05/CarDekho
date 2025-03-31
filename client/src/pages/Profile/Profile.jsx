@@ -16,6 +16,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Snackbar from "@mui/material/Snackbar";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const style = {
   position: "absolute",
@@ -45,7 +46,7 @@ const Profile = ({ user, setUser, setIsLoggedIn }) => {
   useEffect(() => {
     const getUser = async () => {
       try {
-        const res = await axios.get(`/api/user/getUser/${params.id}`);
+        const res = await axios.get(`${backendUrl}/api/user/getUser/${params.id}`);
         setData(res.data.user);
       } catch (err) {
         console.log(err);
@@ -54,7 +55,7 @@ const Profile = ({ user, setUser, setIsLoggedIn }) => {
 
     const getRating = async () => {
       try {
-        const res = await axios.get(`/api/reviews/getRating/${params.id}`);
+        const res = await axios.get(`${backendUrl}/api/reviews/getRating/${params.id}`);
         setProfileRating(res.data.rating);
       } catch (err) {
         console.log(err);
@@ -63,7 +64,7 @@ const Profile = ({ user, setUser, setIsLoggedIn }) => {
 
     const getReviews = async () => {
       try {
-        const res = await axios.get(`/api/reviews/getReviews/${params.id}`);
+        const res = await axios.get(`${backendUrl}/api/reviews/getReviews/${params.id}`);
         // console.log(res.data)
         setReviews(res.data.reviews);
       } catch (err) {
@@ -88,7 +89,7 @@ const Profile = ({ user, setUser, setIsLoggedIn }) => {
         Date: new Date(),
       };
       const res = await axios.post(
-        `/api/reviews/addReview/${params.id}`,
+        `${backendUrl}/api/reviews/addReview/${params.id}`,
         review
       );
       setflag((p) => !p);
@@ -149,7 +150,7 @@ const Profile = ({ user, setUser, setIsLoggedIn }) => {
     try {
       const formData = new FormData();
       formData.append("photo", newPhoto);
-      await axios.post(`/api/user/updatePhoto/${params.id}`, formData, {
+      await axios.post(`${backendUrl}/api/user/updatePhoto/${params.id}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

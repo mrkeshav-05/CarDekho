@@ -13,6 +13,8 @@ import "react-toastify/dist/ReactToastify.css";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -75,7 +77,7 @@ function PublishTrip({ user, setUser, setIsLoggedIn }) {
         totalDistance,
       }
       console.log(data)
-      const res = await axios.post('api/trip/createtrip', data);
+      const res = await axios.post(`${backendUrl}/api/trip/createtrip`, data);
       console.log(res);
       toast.success('Trip Published Successfully');
       navigate('/')

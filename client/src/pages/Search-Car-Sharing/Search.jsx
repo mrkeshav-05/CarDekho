@@ -8,6 +8,7 @@ import "./SearchTrip.css";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import LinearProgress from "@mui/material/LinearProgress";
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 function SearchTrip({ user, setIsLoggedIn }) {
   const [source, setSource] = useState("");
@@ -91,7 +92,7 @@ function SearchTrip({ user, setIsLoggedIn }) {
 
     try {
       const response = await axios.post(
-        "/api/trip/findtrip",
+        `${backendUrl}/api/trip/findtrip`,
         data
       );
 

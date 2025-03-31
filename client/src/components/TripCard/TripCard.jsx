@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import {useNavigate} from 'react-router-dom'
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
 const TripCard = ({trip, user}) => {
   const { driver, CarModel, availableSeats, fare, routes, totalTime, totalDistance ,time} = trip
   const dateObj = new Date(time);
@@ -17,7 +19,8 @@ const TripCard = ({trip, user}) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`/api/user/getUser/${driver}`);
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
+        const response = await axios.get(`${backendUrl}/api/user/getUser/${driver}`);
         const { name, phone } = response.data.user;
         setDrivername(name);
         setDriverMobileNumber(phone);

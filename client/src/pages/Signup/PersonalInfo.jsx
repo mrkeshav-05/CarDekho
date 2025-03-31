@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const PersonalInfo = () => {
     const location = useLocation();
@@ -41,7 +42,7 @@ const PersonalInfo = () => {
         const entry = { ...Entry, age, address, gender, prof };
         console.log(entry, '- entry');
         try {
-            await axios.post("/api/auth/signup", entry);
+            await axios.post(`${backendUrl}/api/auth/signup`, entry);
             navigate('/signin');
         } catch (err) {
             if (err.response && err.response.status === 400) {
