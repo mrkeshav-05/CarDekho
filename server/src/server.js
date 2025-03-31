@@ -26,11 +26,11 @@ const app = express();
 
 
 
-
+const frontendUrl = process.env.FRONTEND_URL;
 
 // ✅ CORS configuration
 app.use(cors({
-    origin: "http://localhost:5173",  // Change this to your frontend URL
+    origin: frontendUrl,  // Change this to your frontend URL
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
